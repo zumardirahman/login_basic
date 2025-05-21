@@ -39,6 +39,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.indigo[50],
       appBar: AppBar(title: const Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -46,18 +47,30 @@ class _LoginPageState extends State<LoginPage> {
           key: _formKey,
           child: Column(
             children: [
+              const Icon(Icons.lock_outline, size: 72, color: Colors.indigo),
+              const SizedBox(height: 12),
+              const Text('Aplikasi Praktikum',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 32),
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email),
+                ),
                 keyboardType: TextInputType.emailAddress,
-                validator: (value) =>
-                    value == null || !value.contains('@') ? 'Email tidak valid' : null,
+                validator: (value) => value == null || !value.contains('@')
+                    ? 'Email tidak valid'
+                    : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.lock),
+                ),
                 validator: (value) {
                   if (value == null || !_validatePassword(value)) {
                     return 'Password minimal 8 karakter, huruf besar, kecil, dan angka';
@@ -66,9 +79,18 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
               const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: _login,
-                child: const Text('Login'),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _login,
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text('Login'),
+                ),
               ),
             ],
           ),

@@ -50,6 +50,49 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+Widget _buildBody() {
+  if (_selectedIndex == 0) {
+    // Halaman Beranda (asli)
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Center(
+        child: Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.home, size: 72, color: Colors.indigo),
+                const SizedBox(height: 12),
+                Text(
+                  'Selamat Datang!',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Anda login sebagai:',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  widget.email,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  } else if (_selectedIndex == 1) {
+    return const Center(child: Text('Ini halaman Profil'));
+  } else {
+    return const Center(child: Text('Ini halaman Pengaturan'));
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,41 +106,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Center(
-          child: Card(
-            elevation: 4,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.home, size: 72, color: Colors.indigo),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Selamat Datang!',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Anda login sebagai:',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    widget.email, // perhatikan: akses via widget.email
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+      body: _buildBody(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.indigo,
